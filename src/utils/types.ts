@@ -8,7 +8,7 @@ export type Project = {
   id: string;
   title: string;
   description: string | null;
-  image: string | null;
+  mediaKey: string | null;
   slug: string;
   purchaseLink: string | null;
   createdAt: Date;

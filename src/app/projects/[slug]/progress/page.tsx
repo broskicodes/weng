@@ -2,6 +2,8 @@ import { notFound } from 'next/navigation';
 import Link from 'next/link';
 import { buttonVariants } from '@/components/ui/button';
 import { Project, ProjectUpdate } from '@/utils/types';
+import { getMediaUrl } from '@/utils/aws';
+import { MediaDisplay } from '@/components/MediaDisplay';
 
 async function getProject(slug: string): Promise<Project | null> {
   const res = await fetch(`${process.env.NEXT_PUBLIC_APP_URL}/api/projects/${slug}`);
@@ -79,8 +81,8 @@ export default async function ProjectProgressPage({ params }: { params: { slug: 
                           </div>
                           <p className="text-gray-600">{update.description}</p>
                           {update.media && (
-                            <img 
-                              src={update.media} 
+                            <MediaDisplay 
+                              src={getMediaUrl(update.media)}
                               alt={update.update}
                               className="rounded-lg w-full aspect-video object-cover"
                             />

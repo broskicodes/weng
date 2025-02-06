@@ -2,6 +2,8 @@ import { notFound } from 'next/navigation';
 import Link from 'next/link';
 import { buttonVariants } from '@/components/ui/button';
 import { Project } from '@/utils/types';
+import { MediaDisplay } from '@/components/MediaDisplay';
+import { getMediaUrl } from '@/utils/aws';
 
 async function getProject(slug: string): Promise<Project | null> {
   const res = await fetch(`${process.env.NEXT_PUBLIC_APP_URL}/api/projects/${slug}`);
@@ -44,10 +46,11 @@ export default async function ProjectPage({ params }: { params: { slug: string }
         </div>
 
         <div className="aspect-video rounded-xl overflow-hidden">
-          <img 
-            src={project.image || ''}
+          <MediaDisplay 
+            src={getMediaUrl(project.mediaKey)}
             alt={project.title}
             className="w-full h-full object-cover"
+            minimalControls
           />
         </div>
 
@@ -80,6 +83,7 @@ export default async function ProjectPage({ params }: { params: { slug: string }
 
           <Link
             href={projectLinks.purchase || '#'}
+            target="_blank"
             className={`group flex flex-col items-center p-6 rounded-xl transition-all ${
               projectLinks.purchase 
                 ? "bg-gradient-to-br from-purple-500 to-indigo-600 hover:from-purple-600 hover:to-indigo-700 text-white hover:shadow-lg hover:-translate-y-1"

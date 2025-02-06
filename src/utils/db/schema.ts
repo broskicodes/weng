@@ -4,7 +4,7 @@ export const projects = pgTable('projects', {
   id: uuid('id').primaryKey().defaultRandom(),
   title: text('title').notNull(),
   description: text('description'),
-  media: text('image'),
+  mediaKey: text('media_key'),
   slug: text('slug').notNull().unique(),
   purchaseLink: text('purchase_link'),
   createdAt: timestamp('created_at').defaultNow().notNull(),

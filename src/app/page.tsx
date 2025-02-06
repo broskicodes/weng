@@ -1,5 +1,7 @@
 import Link from 'next/link';
 import { Project } from '@/utils/types';
+import { getMediaUrl } from '@/utils/aws';
+import { MediaDisplay } from '@/components/MediaDisplay';
 
 async function getProjects(): Promise<Project[]> {
   const res = await fetch(`${process.env.NEXT_PUBLIC_APP_URL}/api/projects`);
@@ -34,10 +36,11 @@ export default async function Home() {
               className="bg-white group border border-gray-200 rounded-xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300"
             >
               <div className="aspect-video overflow-hidden">
-                <img 
-                  src={project.image ?? '/images/placeholder.png'}
+                <MediaDisplay 
+                  src={getMediaUrl(project.mediaKey)}
                   alt={project.title}
                   className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                  autoplayOnHover
                 />
               </div>
               <div className="p-6 space-y-2">
