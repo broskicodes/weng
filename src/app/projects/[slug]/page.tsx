@@ -14,8 +14,9 @@ async function getProject(slug: string): Promise<Project | null> {
   return res.json();
 }
 
-export default async function ProjectPage({ params }: { params: { slug: string } }) {
-  const project = await getProject(params.slug);
+export default async function ProjectPage({ params }: { params: Promise<{ slug: string }> }) {
+  const { slug } = await params;
+  const project = await getProject(slug);
   
   if (!project) {
     notFound();

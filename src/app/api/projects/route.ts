@@ -7,6 +7,7 @@ export async function GET() {
     const data = await db.select().from(projects);
     return NextResponse.json(data);
   } catch (error) {
+    console.error(error);
     return NextResponse.json({ error: 'Failed to fetch projects' }, { status: 500 });
   }
 } 

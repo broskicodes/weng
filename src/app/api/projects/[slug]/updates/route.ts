@@ -5,10 +5,11 @@ import { NextResponse } from 'next/server';
 
 export async function GET(
   _: Request,
-  { params }: { params: { slug: string } }
-) {
+  { params }: { params: Promise<{ slug: string }> }
+): Promise<NextResponse> {
+  const { slug } = await params;
   try {
-    const project = await db.select().from(projects).where(eq(projects.slug, params.slug));
+    const project = await db.select().from(projects).where(eq(projects.slug, slug));
     if (!project.length) {
       return NextResponse.json({ error: 'Project not found' }, { status: 404 });
     }
@@ -21,6 +22,7 @@ export async function GET(
 
     return NextResponse.json(updates);
   } catch (error) {
+    console.error(error);
     return NextResponse.json({ error: 'Failed to fetch project updates' }, { status: 500 });
   }
 } 

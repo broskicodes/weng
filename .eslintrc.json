@@ -1,0 +1,14 @@
+{
+  "extends": ["next/core-web-vitals", "plugin:tailwindcss/recommended"],
+  "settings": {
+    /* Support tailwind rules inside class utility functions */
+    "tailwindcss": {
+      "callees": ["clsx", "cva", "cn"],
+      "config": "tailwind.config.ts"
+    }
+  },
+  "rules": {
+    "@typescript-eslint/no-unused-vars": "off",
+    "@next/next/no-img-element": "off"
+  }
+}

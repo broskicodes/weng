@@ -20,7 +20,7 @@ export default async function Home() {
           My name is <span className="font-bold text-primary">Braeden</span>
         </h1>
         <h2 className="text-xl animate-fade-in [animation-delay:400ms]">
-          I'm a self-taught <span className="font-bold text-primary">Electronics Engineer</span> <span className="italic text-gray-400">(in training)</span>
+          {"I'm a self-taught"} <span className="font-bold text-primary">Electronics Engineer</span> <span className="italic text-gray-400">(in training)</span>
         </h2>
       </section>
 

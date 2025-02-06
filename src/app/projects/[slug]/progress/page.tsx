@@ -20,10 +20,11 @@ async function getProjectUpdates(slug: string): Promise<ProjectUpdate[]> {
   return res.json();
 }
 
-export default async function ProjectProgressPage({ params }: { params: { slug: string } }) {
+export default async function ProjectProgressPage({ params }: { params: Promise<{ slug: string }> }) {
+  const { slug } = await params;
   const [project, updates] = await Promise.all([
-    getProject(params.slug),
-    getProjectUpdates(params.slug),
+    getProject(slug),
+    getProjectUpdates(slug),
   ]);
   
   if (!project) {
