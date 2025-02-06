@@ -5,27 +5,17 @@ import { Project } from '@/utils/types';
 import { MediaDisplay } from '@/components/MediaDisplay';
 import { getMediaUrl } from '@/utils/aws';
 
-// async function getProject(slug: string): Promise<Project | null> {
-//   const res = await fetch(`${process.env.NEXT_PUBLIC_APP_URL}/api/projects/${slug}`);
-//   if (!res.ok) {
-//     if (res.status === 404) return null;
-//     throw new Error('Failed to fetch project');
-//   }
-//   return res.json();
-// }
+async function getProject(slug: string): Promise<Project | null> {
+  const res = await fetch(`${process.env.NEXT_PUBLIC_APP_URL}/api/projects/${slug}`);
+  if (!res.ok) {
+    if (res.status === 404) return null;
+    throw new Error('Failed to fetch project');
+  }
+  return res.json();
+}
 
-export default async function ProjectPage({ params }: { params: Promise<{ slug: string }> }) {
-  const { slug } = await params;
-  const project: Project | null = {
-    id: "1",
-    title: "Project 1",
-    description: "Description 1",
-    mediaKey: "mediaKey1",
-    slug: "project-1",
-    purchaseLink: "https://example.com/project-1",
-    createdAt: new Date(),
-    updatedAt: new Date(),
-  };
+export default async function ProjectPage({ params }: { params: { slug: string } }) {
+  const project = await getProject(params.slug);
   
   if (!project) {
     notFound();

@@ -3,15 +3,14 @@ import { Project } from '@/utils/types';
 import { getMediaUrl } from '@/utils/aws';
 import { MediaDisplay } from '@/components/MediaDisplay';
 
-// async function getProjects(): Promise<Project[]> {
-//   const res = await fetch(`${process.env.NEXT_PUBLIC_APP_URL}/api/projects`);
-//   if (!res.ok) throw new Error('Failed to fetch projects');
-//   return res.json();
-// }
+async function getProjects(): Promise<Project[]> {
+  const res = await fetch(`${process.env.NEXT_PUBLIC_APP_URL}/api/projects`);
+  if (!res.ok) throw new Error('Failed to fetch projects');
+  return res.json();
+}
 
 export default async function Home() {
-  // const allProjects = await getProjects();
-  const allProjects: Project[] = [];
+  const allProjects = await getProjects();
 
   return (
     <main className="max-w-5xl mx-auto px-6 py-16 space-y-24">

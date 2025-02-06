@@ -5,14 +5,14 @@ import { Project, ProjectUpdate } from '@/utils/types';
 import { getMediaUrl } from '@/utils/aws';
 import { MediaDisplay } from '@/components/MediaDisplay';
 
-// async function getProject(slug: string): Promise<Project | null> {
-//   const res = await fetch(`${process.env.NEXT_PUBLIC_APP_URL}/api/projects/${slug}`);
-//   if (!res.ok) {
-//     if (res.status === 404) return null;
-//     throw new Error('Failed to fetch project');
-//   }
-//   return res.json();
-// }
+async function getProject(slug: string): Promise<Project | null> {
+  const res = await fetch(`${process.env.NEXT_PUBLIC_APP_URL}/api/projects/${slug}`);
+  if (!res.ok) {
+    if (res.status === 404) return null;
+    throw new Error('Failed to fetch project');
+  }
+  return res.json();
+}
 
 async function getProjectUpdates(slug: string): Promise<ProjectUpdate[]> {
   const res = await fetch(`${process.env.NEXT_PUBLIC_APP_URL}/api/projects/${slug}/updates`);
@@ -23,17 +23,7 @@ async function getProjectUpdates(slug: string): Promise<ProjectUpdate[]> {
 export default async function ProjectProgressPage({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;
   const [project, updates] = await Promise.all([
-    // getProject(slug),
-    {
-      id: "1",
-      title: "Project 1",
-      description: "Description 1",
-      mediaKey: "mediaKey1",
-      slug: "project-1",
-      purchaseLink: "https://example.com/project-1",
-      createdAt: new Date(),
-      updatedAt: new Date(),
-    },
+    getProject(slug),
     getProjectUpdates(slug),
   ]);
   
