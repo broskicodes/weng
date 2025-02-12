@@ -11,6 +11,7 @@ export type Project = {
   mediaKey: string | null;
   slug: string;
   purchaseLink: string | null;
+  status: string;
   createdAt: Date;
   updatedAt: Date;
 };
@@ -20,7 +21,8 @@ export type ProjectUpdate = {
   projectId: string;
   update: string;
   description: string;
-  media: string | null;
+  mediaKey: string | null;
+  completedAt: Date;
   createdAt: Date;
   updatedAt: Date;
 }; 

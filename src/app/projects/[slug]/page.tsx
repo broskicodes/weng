@@ -52,6 +52,8 @@ export default async function ProjectPage({ params }: { params: Promise<{ slug: 
             alt={project.title}
             className="w-full h-full object-cover"
             minimalControls
+            autoPlay
+            autoplayOnHover={false}
           />
         </div>
 

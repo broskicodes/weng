@@ -1,9 +1,12 @@
 import { notFound } from 'next/navigation';
 import Link from 'next/link';
+import ReactMarkdown from 'react-markdown';
 import { buttonVariants } from '@/components/ui/button';
 import { Project, ProjectUpdate } from '@/utils/types';
 import { getMediaUrl } from '@/utils/aws';
 import { MediaDisplay } from '@/components/MediaDisplay';
+import { AddUpdateDialog } from './AddUpdateDialog';
+import { cn } from '@/lib/utils';
 
 async function getProject(slug: string): Promise<Project | null> {
   const res = await fetch(`${process.env.NEXT_PUBLIC_APP_URL}/api/projects/${slug}`);
@@ -17,7 +20,10 @@ async function getProject(slug: string): Promise<Project | null> {
 async function getProjectUpdates(slug: string): Promise<ProjectUpdate[]> {
   const res = await fetch(`${process.env.NEXT_PUBLIC_APP_URL}/api/projects/${slug}/updates`);
   if (!res.ok) throw new Error('Failed to fetch project updates');
-  return res.json();
+  const updates = await res.json();
+  return updates.sort((a: ProjectUpdate, b: ProjectUpdate) => 
+    new Date(b.completedAt).getTime() - new Date(a.completedAt).getTime()
+  );
 }
 
 export default async function ProjectProgressPage({ params }: { params: Promise<{ slug: string }> }) {
@@ -32,10 +38,12 @@ export default async function ProjectProgressPage({ params }: { params: Promise<
   }
 
   const latestUpdate = updates[0];
-  const progress = Math.min(Math.floor((updates.length / 10) * 100), 100);
+  const isDev = process.env.NODE_ENV === 'development';
 
   return (
     <main className="max-w-5xl mx-auto px-6 py-16 space-y-8">
+      {isDev && <AddUpdateDialog slug={slug} />}
+      
       <div className="flex items-center gap-4">
         <Link 
           href={`/projects/${project.slug}`}
@@ -62,30 +70,57 @@ export default async function ProjectProgressPage({ params }: { params: Promise<
           <div className="md:col-span-2">
             <div className="space-y-12">
               <div className="relative pl-8 before:content-[''] before:absolute before:left-[11px] before:top-[30px] before:bottom-0 before:w-[2px] before:bg-gray-200">
-                <div className="relative space-y-12">
+                <div className="relative space-y-4">
                   {updates.length > 0 ? (
-                    updates.map((update) => (
+                    updates.map((update, index) => (
                       <div key={update.id} className="relative">
-                        <div className="absolute left-[-33px] flex items-center justify-center w-6 h-6 rounded-full bg-primary ring-8 ring-white">
-                          <div className="w-2 h-2 rounded-full bg-white" />
-                        </div>
+                        {index === 0 && (
+                          <div className="absolute left-[-33px] flex items-center justify-center w-6 h-6 rounded-full bg-primary ring-8 ring-white">
+                            <div className="w-2 h-2 rounded-full bg-white" />
+                          </div>
+                        )}
+                        {index !== 0 && (
+                          <div className="absolute left-[-25px] w-2 h-2 rounded-full bg-gray-300" />
+                        )}
                         <div className="bg-white border-2 border-gray-200 rounded-xl p-6 space-y-4">
                           <div className="flex flex-col gap-1">
-                            <time className="text-sm text-gray-500">
-                              {new Date(update.createdAt).toLocaleDateString('en-US', {
+                            <time className="text-sm">
+                              {new Date(update.completedAt).toLocaleDateString('en-US', {
                                 year: 'numeric',
                                 month: 'long',
                                 day: 'numeric'
                               })}
                             </time>
-                            <h3 className="text-xl font-semibold">{update.update}</h3>
+                            <div className="prose prose-sm max-w-none font-bold">
+                              <ReactMarkdown
+                                components={{
+                                  a: ({ node, ...props }) => (
+                                    <a {...props} className="text-primary font-medium no-underline hover:underline" target="_blank" rel="noopener noreferrer" />
+                                  )
+                                }}
+                              >
+                                {update.update}
+                              </ReactMarkdown>
+                            </div>
                           </div>
-                          <p className="text-gray-600">{update.description}</p>
-                          {update.media && (
+                          <div className="prose prose-sm max-w-none text-gray-500">
+                            <ReactMarkdown
+                              components={{
+                                a: ({ node, ...props }) => (
+                                  <a {...props} className="text-primary font-medium no-underline hover:underline" target="_blank" rel="noopener noreferrer" />
+                                )
+                              }}
+                            >
+                              {update.description}
+                            </ReactMarkdown>
+                          </div>
+                          {update.mediaKey && (
                             <MediaDisplay 
-                              src={getMediaUrl(update.media)}
+                              src={getMediaUrl(update.mediaKey)}
                               alt={update.update}
-                              className="rounded-lg w-full aspect-video object-cover"
+                              className="rounded-lg w-full object-cover"
+                              minimalControls
+                              autoPlay
                             />
                           )}
                         </div>
@@ -115,7 +150,7 @@ export default async function ProjectProgressPage({ params }: { params: Promise<
                   <div>
                     <h4 className="text-sm font-medium text-gray-500">Last Updated</h4>
                     <p className="font-medium">
-                      {latestUpdate ? new Date(latestUpdate.createdAt).toLocaleDateString('en-US', {
+                      {latestUpdate ? new Date(latestUpdate.completedAt).toLocaleDateString('en-US', {
                         year: 'numeric',
                         month: 'long',
                         day: 'numeric'
@@ -123,24 +158,22 @@ export default async function ProjectProgressPage({ params }: { params: Promise<
                     </p>
                   </div>
                   <div>
-                    <h4 className="text-sm font-medium text-gray-500">Completion</h4>
-                    <div className="mt-2">
-                      <div className="w-full bg-gray-200 rounded-full h-2.5">
-                        <div 
-                          className="bg-primary h-2.5 rounded-full transition-all duration-500" 
-                          style={{ width: `${progress}%` }}
-                        />
-                      </div>
-                      <p className="text-sm text-gray-500 mt-1">{progress}% Complete</p>
-                    </div>
+                    <h4 className="text-sm font-medium text-gray-500">Status</h4>
+                    <p className={`inline-flex px-2.5 py-0.5 rounded-full text-sm font-medium ${
+                      project.status === 'complete' ? 'bg-emerald-100 text-emerald-700' :
+                      project.status === 'hiatus' ? 'bg-amber-100 text-amber-700' :
+                      'bg-blue-100 text-blue-700'
+                    }`}>
+                      {project.status.charAt(0).toUpperCase() + project.status.slice(1)}
+                    </p>
                   </div>
                 </div>
                 {project.purchaseLink && (
                   <Link
                     href={project.purchaseLink}
-                    className="block w-full text-center bg-primary text-white font-medium px-4 py-2 rounded-lg hover:bg-primary/90 transition-colors"
+                    className={cn(buttonVariants({ variant: "default" }), "w-full")}
                   >
-                    Pre-Order Now
+                    {project.status === 'complete' ? 'Buy Now' : 'Pre-Order Now'}
                   </Link>
                 )}
               </div>

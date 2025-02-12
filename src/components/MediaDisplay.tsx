@@ -8,9 +8,10 @@ type MediaDisplayProps = {
   className?: string;
   autoplayOnHover?: boolean;
   minimalControls?: boolean;
+  autoPlay?: boolean;
 };
 
-export function MediaDisplay({ src, alt, className = '', autoplayOnHover = false, minimalControls = false }: MediaDisplayProps) {
+export function MediaDisplay({ src, alt, className = '', autoplayOnHover = false, minimalControls = false, autoPlay = false }: MediaDisplayProps) {
   const [isVideo, setIsVideo] = useState(false);
   const [isPlaying, setIsPlaying] = useState(false);
   const videoRef = useRef<HTMLVideoElement>(null);
@@ -55,8 +56,9 @@ export function MediaDisplay({ src, alt, className = '', autoplayOnHover = false
           controls={!autoplayOnHover && !minimalControls}
           className={`w-full ${className}`}
           preload="metadata"
-          muted={autoplayOnHover}
+          muted={autoplayOnHover || autoPlay}
           loop={autoplayOnHover}
+          autoPlay={autoPlay}
           onMouseEnter={handleMouseEnter}
           onMouseLeave={handleMouseLeave}
           onPlay={() => setIsPlaying(true)}
