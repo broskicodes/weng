@@ -4,6 +4,9 @@ export interface ProjectLinks {
   purchase?: string;
 }
 
+export type ProjectStatus = 'active' | 'hiatus' | 'complete';
+export type ProjectDifficulty = 'novice' | 'intermediate' | 'cracked';
+
 export type Project = {
   id: string;
   title: string;
@@ -11,9 +14,10 @@ export type Project = {
   mediaKey: string | null;
   slug: string;
   purchaseLink: string | null;
-  status: string;
+  status: ProjectStatus;
   createdAt: Date;
   updatedAt: Date;
+  details?: Omit<ProjectDetails, 'id' | 'projectId' | 'createdAt' | 'updatedAt'>;
 };
 
 export type ProjectUpdate = {
@@ -26,3 +30,13 @@ export type ProjectUpdate = {
   createdAt: Date;
   updatedAt: Date;
 }; 
+
+export type ProjectDetails = {
+  id: string;
+  projectId: string;
+  cost: string;
+  difficulty: ProjectDifficulty;
+  writeUp: string;
+  createdAt: Date;
+  updatedAt: Date;
+};

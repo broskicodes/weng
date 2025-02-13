@@ -23,3 +23,14 @@ export const projectProgress = pgTable('project_progress', {
   createdAt: timestamp('created_at').defaultNow().notNull(),
   updatedAt: timestamp('updated_at').defaultNow().notNull(),
 });
+
+export const projectDifficulty = pgEnum('project_difficulty', ['novice', 'intermediate', 'cracked']);
+export const projectDetails = pgTable('project_details', {
+  id: uuid('id').primaryKey().defaultRandom(),
+  projectId: uuid('project_id').references(() => projects.id),
+  cost: text('cost').notNull(),
+  difficulty: projectDifficulty('difficulty').notNull(),
+  writeUp: text('write_up').notNull(),
+  createdAt: timestamp('created_at').defaultNow().notNull(),
+  updatedAt: timestamp('updated_at').defaultNow().notNull(),
+});
