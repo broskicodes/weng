@@ -50,7 +50,7 @@ export function MediaDisplay({ src, alt, className = '', autoplayOnHover = false
 
   if (isVideo) {
     return (
-      <div className="relative group">
+      <div className="group relative">
         <video 
           ref={videoRef}
           controls={!autoplayOnHover && !minimalControls}
@@ -70,14 +70,14 @@ export function MediaDisplay({ src, alt, className = '', autoplayOnHover = false
         {minimalControls && (
           <button
             onClick={togglePlay}
-            className="absolute inset-0 flex items-center justify-center bg-black/0 group-hover:bg-black/20 transition-colors"
+            className="absolute inset-0 flex items-center justify-center transition-colors group-hover:bg-black/20"
           >
             {isPlaying ? (
-              <svg className="w-16 h-16 text-white opacity-0 group-hover:opacity-100 transition-opacity" viewBox="0 0 24 24" fill="currentColor">
+              <svg className="size-16 text-white opacity-0 transition-opacity group-hover:opacity-100" viewBox="0 0 24 24" fill="currentColor">
                 <path d="M8 5v14l11-7z"/>
               </svg>
             ) : (
-              <svg className="w-16 h-16 text-white opacity-0 group-hover:opacity-100 transition-opacity" viewBox="0 0 24 24" fill="currentColor">
+              <svg className="size-16 text-white opacity-0 transition-opacity group-hover:opacity-100" viewBox="0 0 24 24" fill="currentColor">
                 <path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/>
               </svg>
             )}

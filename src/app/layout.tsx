@@ -20,7 +20,7 @@ const permanentMarker = Permanent_Marker({
 
 export const metadata: Metadata = {
   title: "wEngineering",
-  description: "Collection of electronics engineering projects created by Braeden.",
+  description: "Collection of Mechatronics engineering projects created by Braeden.",
 };
 
 export default function RootLayout({
@@ -31,7 +31,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${nunitoSans.variable} ${spaceGrotesk.variable} ${permanentMarker.variable} antialiased font-nunito`}
+        className={`antialiased font-nunito ${nunitoSans.variable} ${spaceGrotesk.variable} ${permanentMarker.variable}`}
       >
         {children}
       </body>

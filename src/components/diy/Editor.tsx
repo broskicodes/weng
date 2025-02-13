@@ -21,18 +21,18 @@ export default function Editor({ slug, details, preview = false, projectDetails 
   const [editor, setEditor] = useState<TiptapEditor | null>(null);
 
   const contentView = (
-    <div className="grid grid-cols-1 lg:grid-cols-[1fr,320px] gap-6">
+    <div className="grid grid-cols-1 gap-6">
       <div className="lg:hidden">
         {projectDetails}
         <div className="mt-6">
           <TableOfContents editor={editor} />
         </div>
       </div>
-      <div className="prose max-w-none bg-white border-2 border-gray-200 rounded-xl p-6">
+      <div className="rounded-xl border-2 border-gray-200 bg-white p-6 prose max-w-none">
         <Content 
           content={details.writeUp}
           editable={false}
-          className="min-h-[24rem]"
+          className="min-h-96"
           onReady={setEditor}
         />
       </div>
@@ -60,7 +60,7 @@ export default function Editor({ slug, details, preview = false, projectDetails 
 
       {isPreview ? contentView : (
         <div>
-          <h2 className="text-xl font-bold mb-4">Edit DIY Guide</h2>
+          <h2 className="mb-4 text-xl font-bold">Edit DIY Guide</h2>
           <DevDetailsForm slug={slug} existingDetails={details} />
         </div>
       )}

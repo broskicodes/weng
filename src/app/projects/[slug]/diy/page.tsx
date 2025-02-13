@@ -32,7 +32,7 @@ export default async function ProjectDIYPage({ params }: { params: Promise<{ slu
             href={`/projects/${project.slug}`}
             className={buttonVariants({ variant: "ghost" })}
           >
-            <svg className="w-4 h-4 mr-2" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+            <svg className="size-4 mr-2" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
               <path d="M19 12H5M12 19l-7-7 7-7"/>
             </svg>
             Back to Project
@@ -73,7 +73,7 @@ export default async function ProjectDIYPage({ params }: { params: Promise<{ slu
           href={`/projects/${project.slug}`}
           className={buttonVariants({ variant: "ghost" })}
         >
-          <svg className="w-4 h-4 mr-2" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+          <svg className="size-4 mr-2" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
             <path d="M19 12H5M12 19l-7-7 7-7"/>
           </svg>
           Back to Project

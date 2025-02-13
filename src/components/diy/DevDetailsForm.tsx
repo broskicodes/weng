@@ -38,7 +38,14 @@ export default function DevDetailsForm({ slug, existingDetails }: DevDetailsForm
   };
 
   return (
-    <form onSubmit={handleSubmit} className="space-y-6 bg-white border-2 border-gray-200 rounded-xl p-6">
+    <form onSubmit={handleSubmit} className="space-y-6">
+      <div className="rounded-xl border-2 border-gray-200 bg-white p-6">
+        <Content 
+          content={writeUp} 
+          onChange={(content) => setWriteUp(content)}
+          className="min-h-96"
+        />
+      </div>
       <div className="space-y-2">
         <label className="block text-sm font-medium">Cost</label>
         <input
@@ -65,21 +72,11 @@ export default function DevDetailsForm({ slug, existingDetails }: DevDetailsForm
         </select>
       </div>
 
-      <div className="space-y-2">
-        <label className="block text-sm font-medium mb-2">Write-up</label>
-        <div className="min-h-[24rem] border rounded overflow-hidden">
-          <Content 
-            content={writeUp} 
-            onChange={setWriteUp}
-            placeholder="Start writing your guide..."
-            className="min-h-[24rem] prose max-w-none"
-          />
-        </div>
+      <div className="flex justify-end">
+        <Button type="submit" disabled={isLoading}>
+          {isLoading ? 'Saving...' : 'Save'}
+        </Button>
       </div>
-
-      <Button type="submit" disabled={isLoading}>
-        {isLoading ? 'Saving...' : existingDetails ? 'Update Details' : 'Create Details'}
-      </Button>
     </form>
   );
 } 

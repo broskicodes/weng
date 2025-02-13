@@ -44,12 +44,12 @@ export default async function ProjectProgressPage({ params }: { params: Promise<
     <main className="max-w-5xl mx-auto px-6 py-16 space-y-8">
       {isDev && <AddUpdateDialog slug={slug} />}
       
-      <div className="flex items-center gap-4">
+      <div className="flex items-center justify-between gap-4">
         <Link 
           href={`/projects/${project.slug}`}
           className={buttonVariants({ variant: "ghost" })}
         >
-          <svg className="w-4 h-4 mr-2" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+          <svg className="size-4 mr-2" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
             <path d="M19 12H5M12 19l-7-7 7-7"/>
           </svg>
           Back to Project
@@ -58,7 +58,7 @@ export default async function ProjectProgressPage({ params }: { params: Promise<
 
       <div className="space-y-8">
         <div className="space-y-4">
-          <h1 className="text-4xl font-space font-bold">
+          <h1 className="font-space text-4xl font-bold">
             {project.title} Progress
           </h1>
           <p className="text-lg text-gray-600">
@@ -66,7 +66,7 @@ export default async function ProjectProgressPage({ params }: { params: Promise<
           </p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+        <div className="grid grid-cols-1 gap-8 md:grid-cols-3">
           <div className="md:col-span-2">
             <div className="space-y-12">
               <div className="relative pl-8 before:content-[''] before:absolute before:left-[11px] before:top-[30px] before:bottom-0 before:w-[2px] before:bg-gray-200">
@@ -75,14 +75,14 @@ export default async function ProjectProgressPage({ params }: { params: Promise<
                     updates.map((update, index) => (
                       <div key={update.id} className="relative">
                         {index === 0 && (
-                          <div className="absolute left-[-33px] flex items-center justify-center w-6 h-6 rounded-full bg-primary ring-8 ring-white">
-                            <div className="w-2 h-2 rounded-full bg-white" />
+                          <div className="absolute left-[-33px] flex items-center justify-center size-6 rounded-full bg-primary ring-8 ring-white">
+                            <div className="size-2 rounded-full bg-white" />
                           </div>
                         )}
                         {index !== 0 && (
-                          <div className="absolute left-[-25px] w-2 h-2 rounded-full bg-gray-300" />
+                          <div className="absolute left-[-25px] size-2 rounded-full bg-gray-300" />
                         )}
-                        <div className="bg-white border-2 border-gray-200 rounded-xl p-6 space-y-4">
+                        <div className="rounded-xl border-2 border-gray-200 bg-white p-6 space-y-4">
                           <div className="flex flex-col gap-1">
                             <time className="text-sm">
                               {new Date(update.completedAt).toLocaleDateString('en-US', {
@@ -127,9 +127,7 @@ export default async function ProjectProgressPage({ params }: { params: Promise<
                       </div>
                     ))
                   ) : (
-                    <div className="bg-white border-2 border-gray-200 rounded-xl p-6 text-center text-gray-500">
-                      No updates yet. Check back soon!
-                    </div>
+                    <div className="text-center text-gray-500">No updates yet.</div>
                   )}
                 </div>
               </div>
@@ -138,7 +136,7 @@ export default async function ProjectProgressPage({ params }: { params: Promise<
 
           <div>
             <div className="sticky top-6">
-              <div className="bg-white border-2 border-gray-200 rounded-xl p-6 space-y-6">
+              <div className="rounded-xl border-2 border-gray-200 bg-white p-6 space-y-6">
                 <h3 className="text-xl font-semibold">Project Status</h3>
                 <div className="space-y-4">
                   <div>
@@ -159,7 +157,7 @@ export default async function ProjectProgressPage({ params }: { params: Promise<
                   </div>
                   <div>
                     <h4 className="text-sm font-medium text-gray-500">Status</h4>
-                    <p className={`inline-flex px-2.5 py-0.5 rounded-full text-sm font-medium ${
+                    <p className={`inline-flex rounded-full px-2.5 py-0.5 text-sm font-medium ${
                       project.status === 'complete' ? 'bg-emerald-100 text-emerald-700' :
                       project.status === 'hiatus' ? 'bg-amber-100 text-amber-700' :
                       'bg-blue-100 text-blue-700'

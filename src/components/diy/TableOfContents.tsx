@@ -63,18 +63,18 @@ export default function TableOfContents({ editor }: TableOfContentsProps) {
   };
 
   return (
-    <div className="bg-white border-2 border-gray-200 rounded-xl p-6 space-y-4">
-      <h3 className="font-semibold text-lg text-gray-900">Table of Contents</h3>
+    <div className="rounded-xl border-2 border-gray-200 bg-white p-6 space-y-4">
+      <h3 className="text-lg font-semibold text-gray-900">Table of Contents</h3>
       <nav className="space-y-3">
         {headings.map((heading, index) => (
           <button
             key={index}
             onClick={() => scrollToHeading(heading.id)}
             className={cn(
-              "block w-full text-left hover:text-primary transition-colors",
+              "block w-full text-left transition-colors hover:text-primary",
               heading.level === 1 && "font-medium text-gray-900",
               heading.level === 2 && "pl-4 text-gray-700",
-              heading.level === 3 && "pl-8 text-gray-600 text-sm"
+              heading.level === 3 && "pl-8 text-sm text-gray-600"
             )}
           >
             {heading.text}
