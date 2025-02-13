@@ -21,7 +21,7 @@ export default function Editor({ slug, details, preview = false, projectDetails 
   const [editor, setEditor] = useState<TiptapEditor | null>(null);
 
   const contentView = (
-    <div className="grid grid-cols-1 gap-6">
+    <div className="grid grid-cols-1 lg:grid-cols-[1fr,320px] gap-6">
       <div className="lg:hidden">
         {projectDetails}
         <div className="mt-6">

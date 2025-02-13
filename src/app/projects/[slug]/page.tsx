@@ -84,20 +84,27 @@ export default async function ProjectPage({ params }: { params: Promise<{ slug: 
             <p className="text-center text-gray-600">Latest updates and development status</p>
           </Link>
 
-          {projectLinks.purchase && (
-            <Link
-              href={projectLinks.purchase}
-              className="group flex flex-col items-center rounded-xl border-2 border-gray-200 bg-white p-6 transition-all hover:-translate-y-1 hover:bg-gray-50 hover:shadow-lg"
-            >
-              <div className="mb-4 rounded-full bg-emerald-50 p-4 transition-colors group-hover:bg-emerald-100">
-                <svg className="size-8 text-emerald-600" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                  <path d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"/>
-                </svg>
-              </div>
-              <h3 className="mb-2 text-xl font-semibold">Buy Now</h3>
-              <p className="text-center text-gray-600">Purchase a pre-built version</p>
-            </Link>
-          )}
+          <Link
+            href={projectLinks.purchase || '#'}
+            target="_blank"
+            className={`group flex flex-col items-center p-6 rounded-xl transition-all ${
+              projectLinks.purchase 
+                ? "bg-gradient-to-br from-purple-500 to-indigo-600 hover:from-purple-600 hover:to-indigo-700 text-white hover:shadow-lg hover:-translate-y-1"
+                : "bg-gray-100 text-gray-400 cursor-not-allowed"
+            }`}
+          >
+            <div className={`p-4 mb-4 rounded-full transition-colors ${
+              projectLinks.purchase ? "bg-white/10 group-hover:bg-white/20" : "bg-gray-200"
+            }`}>
+              <svg className="w-8 h-8" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                <path d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"/>
+              </svg>
+            </div>
+            <h3 className="text-xl font-semibold mb-2">Just Buy It</h3>
+            <p className={`text-center ${projectLinks.purchase ? "text-white/80" : "text-gray-400"}`}>
+              {projectLinks.purchase ? "If you're too lazy to build it yourself" : "Not available for purchase"}
+            </p>
+          </Link>
         </div>
       </article>
     </main>
