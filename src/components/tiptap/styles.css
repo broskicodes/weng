@@ -10,13 +10,13 @@
     margin-left: 1.5rem;
     list-style-type: decimal;
     font-weight: bold;
-    margin-bottom: 0.5rem;
+    /* margin-bottom: 0.5rem; */
   }
 
   ul {
     margin-left: 1.5rem;
     list-style-type: disc;
-    margin-bottom: 0.5rem;
+    /* margin-bottom: 0.5rem; */
   }
 
   li {
@@ -30,12 +30,14 @@
     font-size: 1.75rem;
     font-weight: 600;
     margin-top: 1rem;
+    font-family: var(--font-space-grotesk);
   }
 
   h3 {
     font-size: 1.5rem;
     font-weight: 600;
     margin-top: 0.25rem;
+    font-family: var(--font-space-grotesk);
   }
 
   hr {
@@ -45,6 +47,7 @@
 
   p {
     margin-bottom: 0.7rem;
+    font-family: var(--font-nunito-sans);
   }
 
   a {

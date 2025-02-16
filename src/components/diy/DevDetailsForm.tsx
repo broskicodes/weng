@@ -16,6 +16,7 @@ export default function DevDetailsForm({ slug, existingDetails }: DevDetailsForm
   const [writeUp, setWriteUp] = useState(existingDetails?.writeUp ?? '');
   const [cost, setCost] = useState(existingDetails?.cost ?? '');
   const [difficulty, setDifficulty] = useState<ProjectDifficulty>(existingDetails?.difficulty ?? 'intermediate');
+  const [buildTime, setBuildTime] = useState(existingDetails?.buildTime ?? '');
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -24,7 +25,7 @@ export default function DevDetailsForm({ slug, existingDetails }: DevDetailsForm
       const res = await fetch(`/api/projects/${slug}/details`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ writeUp, cost, difficulty }),
+        body: JSON.stringify({ writeUp, cost, difficulty, buildTime }),
       });
       if (!res.ok) throw new Error('Failed to save details');
       toast.success('Details saved successfully');
@@ -70,6 +71,18 @@ export default function DevDetailsForm({ slug, existingDetails }: DevDetailsForm
           <option value="intermediate">Intermediate</option>
           <option value="cracked">Cracked</option>
         </select>
+      </div>
+
+      <div className="space-y-2">
+        <label className="block text-sm font-medium">Build Time</label>
+        <input
+          type="text"
+          value={buildTime}
+          onChange={(e) => setBuildTime(e.target.value)}
+          className="w-full p-2 border rounded"
+          placeholder="~2 hours"
+          required
+        />
       </div>
 
       <div className="flex justify-end">

@@ -26,7 +26,8 @@ export async function GET(
           details: {
             writeUp: projectDetails.writeUp,
             difficulty: projectDetails.difficulty,
-            cost: projectDetails.cost
+            cost: projectDetails.cost,
+            buildTime: projectDetails.buildTime,
           }
         })
         .from(projects)

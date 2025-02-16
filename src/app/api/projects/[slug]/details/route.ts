@@ -6,6 +6,7 @@ import { z } from 'zod';
 
 const detailsSchema = z.object({
   cost: z.string(),
+  buildTime: z.string(),
   difficulty: z.enum(['novice', 'intermediate', 'cracked']),
   writeUp: z.string(),
 });

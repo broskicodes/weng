@@ -35,6 +35,7 @@ export type ProjectDetails = {
   id: string;
   projectId: string;
   cost: string;
+  buildTime: string;
   difficulty: ProjectDifficulty;
   writeUp: string;
   createdAt: Date;

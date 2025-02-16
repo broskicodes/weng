@@ -16,6 +16,7 @@ interface HeadingItem {
 
 export default function TableOfContents({ editor }: TableOfContentsProps) {
   const [headings, setHeadings] = useState<HeadingItem[]>([]);
+  const [activeId, setActiveId] = useState<string>('');
 
   useEffect(() => {
     if (!editor) return;
@@ -32,6 +33,33 @@ export default function TableOfContents({ editor }: TableOfContentsProps) {
       }
     });
     setHeadings(items);
+
+    // Get header height once
+    const header = document.querySelector('header');
+    const headerHeight = header?.getBoundingClientRect().height || 10;
+
+    // Set up intersection observer
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            setActiveId(entry.target.id);
+          }
+        });
+      },
+      {
+        rootMargin: `-${headerHeight}px 0px -80%`,
+        threshold: 0
+      }
+    );
+
+    // Observe all section headings
+    items.forEach(({ id }) => {
+      const element = document.getElementById(id);
+      if (element) observer.observe(element);
+    });
+
+    return () => observer.disconnect();
   }, [editor]);
 
   if (!headings.length) return null;
@@ -74,7 +102,8 @@ export default function TableOfContents({ editor }: TableOfContentsProps) {
               "block w-full text-left transition-colors hover:text-primary",
               heading.level === 1 && "font-medium text-gray-900",
               heading.level === 2 && "pl-4 text-gray-700",
-              heading.level === 3 && "pl-8 text-sm text-gray-600"
+              heading.level === 3 && "pl-8 text-sm text-gray-600",
+              activeId === heading.id && "bg-primary/60 text-primary-foreground rounded-md"
             )}
           >
             {heading.text}

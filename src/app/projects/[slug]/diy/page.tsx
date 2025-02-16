@@ -25,7 +25,7 @@ export default async function ProjectDIYPage({ params }: { params: Promise<{ slu
 
   if (!project.details) {
     return (
-      <main className="max-w-5xl mx-auto px-6 py-16 space-y-8">
+      <main className="container mx-auto px-6 py-16 space-y-8">
         <Toaster />
         <div className="flex items-center justify-between gap-4">
           <Link 
@@ -66,7 +66,7 @@ export default async function ProjectDIYPage({ params }: { params: Promise<{ slu
   }
 
   return (
-    <main className="max-w-5xl mx-auto px-6 py-16 space-y-8">
+    <main className="container mx-auto px-6 py-16 space-y-8">
       <Toaster />
       <div className="flex items-center justify-between gap-4">
         <Link 
@@ -98,7 +98,7 @@ export default async function ProjectDIYPage({ params }: { params: Promise<{ slu
             <div className="bg-white border-2 border-gray-200 rounded-xl p-6">
               <div className="space-y-6">
                 <h3 className="font-semibold text-lg text-gray-900">Project Details</h3>
-                <div className="space-y-6">
+                <div className="space-y-2">
                   <div>
                     <h4 className="text-sm font-medium text-gray-500 mb-1">Difficulty</h4>
                     <p className="text-primary font-medium capitalize text-lg">{project.details.difficulty}</p>
@@ -106,6 +106,10 @@ export default async function ProjectDIYPage({ params }: { params: Promise<{ slu
                   <div>
                     <h4 className="text-sm font-medium text-gray-500 mb-1">Cost</h4>
                     <p className="font-medium text-gray-900 text-lg">{project.details.cost}</p>
+                  </div>
+                  <div>
+                    <h4 className="text-sm font-medium text-gray-500 mb-1">Build Time</h4>
+                    <p className="font-medium text-gray-900 text-lg">{project.details.buildTime}</p>
                   </div>
                 </div>
                 {project.purchaseLink && (

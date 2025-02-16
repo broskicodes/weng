@@ -29,6 +29,7 @@ export const projectDetails = pgTable('project_details', {
   id: uuid('id').primaryKey().defaultRandom(),
   projectId: uuid('project_id').references(() => projects.id),
   cost: text('cost').notNull(),
+  buildTime: text('build_time').notNull(),
   difficulty: projectDifficulty('difficulty').notNull(),
   writeUp: text('write_up').notNull(),
   createdAt: timestamp('created_at').defaultNow().notNull(),
