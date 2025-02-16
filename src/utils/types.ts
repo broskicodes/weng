@@ -38,6 +38,7 @@ export type ProjectDetails = {
   buildTime: string;
   difficulty: ProjectDifficulty;
   writeUp: string;
+  youtubeUrl?: string;
   createdAt: Date;
   updatedAt: Date;
 };

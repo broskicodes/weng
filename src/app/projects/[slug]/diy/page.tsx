@@ -83,10 +83,10 @@ export default async function ProjectDIYPage({ params }: { params: Promise<{ slu
       <div className="space-y-8">
         <div className="space-y-4">
           <h1 className="text-4xl font-space font-bold">
-            Build your own {project.title}
+            {project.title} tutorial
           </h1>
           <p className="text-lg text-gray-600">
-            Follow this step-by-step guide to build this project from scratch.
+            Steps to build this project from scratch.
           </p>
         </div>
 

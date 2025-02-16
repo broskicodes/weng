@@ -21,25 +21,37 @@ export default function Editor({ slug, details, preview = false, projectDetails 
   const [editor, setEditor] = useState<TiptapEditor | null>(null);
 
   const contentView = (
-    <div className="grid grid-cols-1 lg:grid-cols-[1fr,320px] gap-6">
-      <div className="lg:hidden">
-        {projectDetails}
-        <div className="mt-6">
-          <TableOfContents editor={editor} />
+    <div className="space-y-6">
+      {details.youtubeUrl && (
+        <div className="aspect-video w-full">
+          <iframe
+            src={`https://www.youtube.com/embed/${details.youtubeUrl.split('v=')[1]}`}
+            className="w-full h-full rounded-xl"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+            allowFullScreen
+          />
         </div>
-      </div>
-      <div className="rounded-xl border-2 border-gray-200 bg-white p-6 prose max-w-none">
-        <Content 
-          content={details.writeUp}
-          editable={false}
-          className="min-h-96"
-          onReady={setEditor}
-        />
-      </div>
-      <div className="hidden lg:block">
-        {projectDetails}
-        <div className="sticky top-6 mt-6">
-          <TableOfContents editor={editor} />
+      )}
+      <div className="grid grid-cols-1 lg:grid-cols-[1fr,320px] gap-6">
+        <div className="lg:hidden">
+          {projectDetails}
+          <div className="mt-6">
+            <TableOfContents editor={editor} />
+          </div>
+        </div>
+        <div className="rounded-xl border-2 border-gray-200 bg-white p-6 prose max-w-none">
+          <Content 
+            content={details.writeUp}
+            editable={false}
+            className="min-h-96"
+            onReady={setEditor}
+          />
+        </div>
+        <div className="hidden lg:block">
+          {projectDetails}
+          <div className="sticky top-6 mt-6">
+            <TableOfContents editor={editor} />
+          </div>
         </div>
       </div>
     </div>

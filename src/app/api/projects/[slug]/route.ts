@@ -28,6 +28,7 @@ export async function GET(
             difficulty: projectDetails.difficulty,
             cost: projectDetails.cost,
             buildTime: projectDetails.buildTime,
+            youtubeUrl: projectDetails.youtubeUrl,
           }
         })
         .from(projects)

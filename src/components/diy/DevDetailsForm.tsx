@@ -17,6 +17,7 @@ export default function DevDetailsForm({ slug, existingDetails }: DevDetailsForm
   const [cost, setCost] = useState(existingDetails?.cost ?? '');
   const [difficulty, setDifficulty] = useState<ProjectDifficulty>(existingDetails?.difficulty ?? 'intermediate');
   const [buildTime, setBuildTime] = useState(existingDetails?.buildTime ?? '');
+  const [youtubeUrl, setYoutubeUrl] = useState(existingDetails?.youtubeUrl ?? '');
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -25,7 +26,7 @@ export default function DevDetailsForm({ slug, existingDetails }: DevDetailsForm
       const res = await fetch(`/api/projects/${slug}/details`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ writeUp, cost, difficulty, buildTime }),
+        body: JSON.stringify({ writeUp, cost, difficulty, buildTime, youtubeUrl }),
       });
       if (!res.ok) throw new Error('Failed to save details');
       toast.success('Details saved successfully');
@@ -82,6 +83,17 @@ export default function DevDetailsForm({ slug, existingDetails }: DevDetailsForm
           className="w-full p-2 border rounded"
           placeholder="~2 hours"
           required
+        />
+      </div>
+
+      <div className="space-y-2">
+        <label className="block text-sm font-medium">YouTube URL</label>
+        <input
+          type="url"
+          value={youtubeUrl}
+          onChange={(e) => setYoutubeUrl(e.target.value)}
+          className="w-full p-2 border rounded"
+          placeholder="https://youtube.com/watch?v=..."
         />
       </div>
 

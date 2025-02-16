@@ -32,6 +32,7 @@ export const projectDetails = pgTable('project_details', {
   buildTime: text('build_time').notNull(),
   difficulty: projectDifficulty('difficulty').notNull(),
   writeUp: text('write_up').notNull(),
+  youtubeUrl: text('youtube_url'),
   createdAt: timestamp('created_at').defaultNow().notNull(),
   updatedAt: timestamp('updated_at').defaultNow().notNull(),
 });

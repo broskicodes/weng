@@ -9,6 +9,7 @@ const detailsSchema = z.object({
   buildTime: z.string(),
   difficulty: z.enum(['novice', 'intermediate', 'cracked']),
   writeUp: z.string(),
+  youtubeUrl: z.string().optional(),
 });
 
 export async function POST(
