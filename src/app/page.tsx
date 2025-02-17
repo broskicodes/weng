@@ -2,6 +2,7 @@ import Link from 'next/link';
 import { Project } from '@/utils/types';
 import { getMediaUrl } from '@/utils/aws';
 import { MediaDisplay } from '@/components/MediaDisplay';
+import CreateProjectDialog from '@/components/CreateProjectDialog';
 
 async function getProjects(): Promise<Project[]> {
   const res = await fetch(`${process.env.NEXT_PUBLIC_APP_URL}/api/projects`);
@@ -25,9 +26,14 @@ export default async function Home() {
       </section>
 
       <section className="space-y-8 animate-slide-up">
-        <h3 className="text-2xl font-space">
-          Here are some of my <span className="font-bold text-primary">projects:</span>
-        </h3>
+        <div className="flex items-center justify-between">
+          <h3 className="text-2xl font-space">
+            Here are some of my <span className="font-bold text-primary">projects:</span>
+          </h3>
+          {process.env.NODE_ENV === 'development' && (
+            <CreateProjectDialog />
+          )}
+        </div>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
           {allProjects.map((project, index) => (
             <Link 
