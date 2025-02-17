@@ -5,7 +5,7 @@ import { MediaDisplay } from '@/components/MediaDisplay';
 import CreateProjectDialog from '@/components/CreateProjectDialog';
 
 async function getProjects(): Promise<Project[]> {
-  const res = await fetch(`${process.env.NEXT_PUBLIC_APP_URL}/api/projects`);
+  const res = await fetch(`${process.env.NEXT_PUBLIC_APP_URL}/api/projects`, { cache: 'no-store' });
   if (!res.ok) throw new Error('Failed to fetch projects');
   return res.json();
 }
