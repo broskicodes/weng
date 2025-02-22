@@ -26,7 +26,7 @@ export default function Editor({ slug, details, preview = false, projectDetails 
         <div className="aspect-video w-full">
           <iframe
             src={`https://www.youtube.com/embed/${details.youtubeUrl.split('v=')[1]}`}
-            className="w-full h-full rounded-xl"
+            className="size-full rounded-xl"
             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
             allowFullScreen
           />

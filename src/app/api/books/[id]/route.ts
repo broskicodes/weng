@@ -5,14 +5,15 @@ import { NextResponse } from 'next/server';
 
 export async function PATCH(
   request: Request,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
   try {
+    const { id } = await params;
     const book = await request.json();
     const [updated] = await db
       .update(books)
       .set(book)
-      .where(eq(books.id, params.id))
+      .where(eq(books.id, id))
       .returning();
     return NextResponse.json(updated);
   } catch (error) {
