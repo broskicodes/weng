@@ -18,17 +18,17 @@ export default async function Home() {
       <section className="space-y-4">
         <h3 className="text-base font-marker text-primary animate-fade-in">HI!</h3>
         <h1 className="text-5xl font-space leading-tight animate-fade-in [animation-delay:200ms]">
-          My name is <span className="font-bold text-primary">Braeden</span>
+          My name is <span className="font-bold text-primary italic">Braeden</span>
         </h1>
         <h2 className="text-xl animate-fade-in [animation-delay:400ms]">
-          {"I'm a self-taught"} <span className="font-bold text-primary">Mechatronics Engineer</span> <span className="italic text-gray-400">(in training)</span>
+          {"I'm a self-taught"} <span className="font-bold text-primary italic">Mechatronics Engineer</span> <span className="italic text-gray-400">(in training)</span>
         </h2>
       </section>
 
       <section className="space-y-8 animate-slide-up">
         <div className="flex items-center justify-between">
           <h3 className="text-2xl font-space">
-            Here are some of my <span className="font-bold text-primary">projects:</span>
+            Here are some of my <span className="font-bold text-primary italic">projects:</span>
           </h3>
           {process.env.NODE_ENV === 'development' && (
             <CreateProjectDialog />
@@ -60,8 +60,27 @@ export default async function Home() {
       </section>
 
       <section className="space-y-6 animate-slide-up [animation-delay:200ms]">
+        <div className="space-y-2">
+          <h3 className="text-2xl font-space">
+            I read <span className="font-bold text-primary italic">a lot</span>
+          </h3>
+          <p className="text-gray-600">Check out the books that have shaped my philosophy and approach to work.</p>
+        </div>
+        <Link 
+          href="/reading"
+          className="inline-flex items-center gap-2 px-6 py-3 rounded-lg bg-primary text-white font-medium hover:bg-primary/90 transition-colors"
+        >
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="size-5">
+            <path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/>
+            <path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/>
+          </svg>
+          View Reading List
+        </Link>
+      </section>
+
+      <section className="space-y-6 animate-slide-up [animation-delay:200ms]">
         <h3 className="text-2xl font-space">
-          Want <span className="font-bold text-primary">more</span> from me?
+          Want <span className="font-bold text-primary italic">more</span> from me?
         </h3>
         <div className="flex flex-col sm:flex-row gap-4 sm:items-center">
           <a 

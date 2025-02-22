@@ -36,3 +36,16 @@ export const projectDetails = pgTable('project_details', {
   createdAt: timestamp('created_at').defaultNow().notNull(),
   updatedAt: timestamp('updated_at').defaultNow().notNull(),
 });
+
+export const bookStatus = pgEnum('book_status', ['read', 'reading', 'to_read']);
+export const books = pgTable('books', {
+  id: uuid('id').primaryKey().defaultRandom(),
+  title: text('title').notNull(),
+  author: text('author').notNull(),
+  goodreadsUrl: text('goodreads_url').notNull(),
+  coverUrl: text('cover_url'),
+  status: bookStatus('status').default('to_read').notNull(),
+  learning: text('learning'),
+  createdAt: timestamp('created_at').defaultNow().notNull(),
+  updatedAt: timestamp('updated_at').defaultNow().notNull(),
+});

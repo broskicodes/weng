@@ -42,3 +42,17 @@ export type ProjectDetails = {
   createdAt: Date;
   updatedAt: Date;
 };
+
+export type BookStatus = 'read' | 'reading' | 'to_read';
+
+export type Book = {
+  id: string;
+  title: string;
+  author: string;
+  goodreadsUrl: string;
+  coverUrl?: string;
+  status: BookStatus;
+  learning?: string;
+  createdAt: Date;
+  updatedAt: Date;
+};
